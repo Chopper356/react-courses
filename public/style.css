@@ -1,0 +1,13 @@
+body {
+	margin: 0;
+	font-family: sans-serif;
+}
+
+button {
+	font-family: sans-serif;
+}
+
+#root {
+	margin: auto;
+	width: 350px;
+}

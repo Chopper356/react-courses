@@ -1,0 +1,11 @@
+.important {
+	color: tomato;
+	font-weight: bold;
+}
+.black {
+	color: black;
+}
+
+.done {
+	text-decoration: line-through;
+}
