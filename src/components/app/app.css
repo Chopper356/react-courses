@@ -4,3 +4,10 @@
 	align-items: flex-end;
 }
 
+.add-item-form input {
+	padding: 10px;
+}
+
+.add-item-form button {
+	padding: 10px;
+}
