@@ -6,7 +6,7 @@ class AddItem extends React.Component {
 		label: ""
 	}
 
-	onLabelChange= (event) => {
+	onLabelChange = (event) => {
 		this.setState({
 			label: event.target.value
 		});

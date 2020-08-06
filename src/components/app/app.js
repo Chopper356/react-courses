@@ -11,10 +11,11 @@ class App extends React.Component {
 
 	state = {
 		todoData: [
-			this.createTodoItem("Drink Coffe"),
+			this.createTodoItem("Drink Coffee"),
 			this.createTodoItem("Play games"),
 			this.createTodoItem("Check telegram")
-		]
+		],
+		query: ""
 	}
 
 	deleteItem = (id) => {
@@ -38,6 +39,10 @@ class App extends React.Component {
 	}
 
 	addItem = (el) => {
+
+		if (el.length === 0) {
+			return false;
+		}
 
 		const newItem = {
 			label: el,
@@ -83,20 +88,35 @@ class App extends React.Component {
 		});
 	}
 
-	render() {
+	onSearch = (query) => {
+		this.setState({ query });
+	}
 
+
+	render() {
+		
 		const doneCount = this.state.todoData.filter((el) => el.done).length;
 		const todoCount = this.state.todoData.length - doneCount
+		const itemsFilter = this.state.todoData.filter((item) => {
+
+			if (this.state.query.length === 0) {
+				return this.state.todoData;
+			}
+
+			const regExp = new RegExp(this.state.query, "gi");
+
+			return item.label.search(regExp) >= 0;
+		});
 
 		return (
 			<div className="app">
 				<AppHeader todo={ todoCount } done={ doneCount }/>
 				<div className="search-panel">
-					<SearchPanel />
+					<SearchPanel onSearch = { this.onSearch }/>
 					<ItemStatusFilter />
 				</div>
 				<TodoList 
-					todos={ this.state.todoData } 
+					todos={ itemsFilter } 
 					onDeleted={ this.deleteItem } 
 					onToggleDone={ this.onToggleDone } 
 					onToggleImportant={ this.onToggleImportant }
