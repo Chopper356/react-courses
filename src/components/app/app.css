@@ -11,3 +11,12 @@
 .add-item-form button {
 	padding: 10px;
 }
+
+.btn {
+	padding: 10px;
+	background-color: rgb(197, 197, 197);
+}
+
+.btnActive {
+	background-color: rgb(0, 140, 255);
+}

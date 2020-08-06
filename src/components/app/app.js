@@ -15,7 +15,8 @@ class App extends React.Component {
 			this.createTodoItem("Play games"),
 			this.createTodoItem("Check telegram")
 		],
-		query: ""
+		query: "",
+		filterStatus: ""
 	}
 
 	deleteItem = (id) => {
@@ -92,12 +93,28 @@ class App extends React.Component {
 		this.setState({ query });
 	}
 
+	filterStatus(items, filter) {
+		switch(filter) {
+			case "all": 
+				return items;
+			case "active":
+				return items.filter((item) => !item.done);
+			case "done":
+				return items.filter((item) => item.done);
+			default: 
+				return items;
+		}
+	}
+
+	onStatusChange = (filterStatus) => {
+		this.setState({ filterStatus });
+	}
 
 	render() {
 		
 		const doneCount = this.state.todoData.filter((el) => el.done).length;
 		const todoCount = this.state.todoData.length - doneCount
-		const itemsFilter = this.state.todoData.filter((item) => {
+		const searchFilter = this.state.todoData.filter((item) => {
 
 			if (this.state.query.length === 0) {
 				return this.state.todoData;
@@ -108,12 +125,14 @@ class App extends React.Component {
 			return item.label.search(regExp) >= 0;
 		});
 
+		const itemsFilter = this.filterStatus(searchFilter, this.state.filterStatus);
+
 		return (
 			<div className="app">
-				<AppHeader todo={ todoCount } done={ doneCount }/>
+				<AppHeader todo={ todoCount } done={ doneCount } />
 				<div className="search-panel">
-					<SearchPanel onSearch = { this.onSearch }/>
-					<ItemStatusFilter />
+					<SearchPanel onSearch={ this.onSearch } />
+					<ItemStatusFilter onStatusChange={ this.onStatusChange } filter={ this.state.filterStatus }/>
 				</div>
 				<TodoList 
 					todos={ itemsFilter } 

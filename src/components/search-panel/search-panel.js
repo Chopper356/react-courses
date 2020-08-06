@@ -11,7 +11,7 @@ class SearchPanel extends React.Component {
 
 	render() {
 		return ( 
-			<input className="search" placeholder="Search" onChange={ this.onSearchChange }></input>
+			<input className="search" placeholder="Search" onChange={ this.onSearchChange }/>
 		);
 	}
 };
